@@ -1,0 +1,241 @@
+/* ==============================
+   Base reset + typography
+   ============================== */
+   *,
+   *::before,
+   *::after {
+     box-sizing: border-box;
+   }
+   
+   html {
+     scroll-behavior: smooth;
+     /* let native controls follow theme when it changes */
+     color-scheme: light dark;
+   }
+   
+   body {
+     margin: 0;
+     line-height: 1.5;
+     -webkit-font-smoothing: antialiased;
+     -moz-osx-font-smoothing: grayscale;
+     text-rendering: optimizeLegibility;
+   }
+   
+   /* Media defaults */
+   img,
+   picture,
+   video,
+   canvas,
+   svg {
+     display: block;
+     max-width: 100%;
+   }
+   
+   /* Inherit fonts on form controls */
+   input,
+   button,
+   textarea,
+   select {
+     font: inherit;
+     color: inherit;
+   }
+   
+   /* Links default to inherited color; underline on hover for clarity */
+   a {
+     color: inherit;
+     text-decoration: none;
+   }
+   a:hover {
+     text-decoration: underline;
+   }
+   
+   /* Better focus styles */
+   :focus-visible {
+     outline: 2px solid #3b82f6; /* blue-500 */
+     outline-offset: 2px;
+   }
+   
+   /* Screen-reader only utility */
+   .sr-only {
+     position: absolute !important;
+     width: 1px; height: 1px;
+     padding: 0; margin: -1px;
+     overflow: hidden; clip: rect(0, 0, 1px, 1px);
+     white-space: nowrap; border: 0;
+   }
+   
+   /* Theming-aware scrollbars (WebKit) */
+   :root {
+     --scrollbar-bg: rgba(0,0,0,0.06);
+     --scrollbar-thumb: rgba(0,0,0,0.28);
+   }
+   :root[data-theme="dark"] {
+     --scrollbar-bg: rgba(255,255,255,0.06);
+     --scrollbar-thumb: rgba(255,255,255,0.28);
+   }
+   
+   *::-webkit-scrollbar {
+     height: 10px;
+     width: 10px;
+   }
+   *::-webkit-scrollbar-track {
+     background: var(--scrollbar-bg);
+   }
+   *::-webkit-scrollbar-thumb {
+     background: var(--scrollbar-thumb);
+     border-radius: 8px;
+   }
+   *::-webkit-scrollbar-thumb:hover {
+     background: rgba(127,127,127,0.6);
+   }
+   
+   /* Root app mounting point takes full height (footer sticks to bottom) */
+   html, body, #root {
+     height: 100%;
+   }
+
+   /* ---- THEME TOKENS ---- */
+:root {
+  --bg: #ffffff;
+  --surface: #f7f8fa;       /* softer card/nav surface in light */
+  --text: #1f2328;
+  --muted: #667085;
+  --border: #e5e7eb;
+
+  --card-bg: var(--surface);
+}
+
+:root[data-theme="dark"] {
+  --bg: #0f1115;            /* page background */
+  --surface: #151a21;       /* card/nav surface in dark */
+  --text: #e6edf3;
+  --muted: #9aa4af;
+  --border: #2b3238;
+
+  --card-bg: var(--surface);
+}
+
+/* ---- PAGE / LAYOUT ---- */
+html, body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Keep main sections on the page background, not black */
+.grid {
+  background: var(--bg);
+}
+
+/* ---- NAVBAR & MENUS ---- */
+.navbar,
+.dropdown-menu {
+  background-color: var(--surface) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+
+/* ---- CARDS (home/product tiles) ---- */
+.card {
+  background: var(--card-bg) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+}
+
+/* Card image area (keeps images neutral in dark) */
+.card-img-wrap { background: #eef1f4; }
+:root[data-theme="dark"] .card-img-wrap { background: #11161c; }
+
+.card-img { object-fit: cover; }
+
+/* fine details */
+.text-muted { color: var(--muted) !important; }
+hr, .border, .border-top, .border-bottom { border-color: var(--border) !important; }
+
+/* ---- FORMS (inputs/selects/search) ---- */
+.form-control,
+.form-select,
+.input-group-text,
+.search-dropdown {
+  background: var(--card-bg);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.form-control::placeholder { color: var(--muted); }
+
+/* Search dropdown hover */
+.search-item:hover { background: rgba(127,127,127,0.12); }
+
+/* ---- PRODUCT PAGE IMAGE ---- */
+.product-hero {
+  background: #f0f2f5;
+  border: 1px solid var(--border);
+}
+:root[data-theme="dark"] .product-hero { background: #10151c; }
+.product-hero-img { object-fit: contain; }
+
+/* ---- BUTTONS (keep Bootstrap look but readable on dark) ---- */
+.btn-outline-secondary,
+.btn-outline-primary {
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+  background: transparent;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-primary:hover {
+  background: rgba(127,127,127,.12);
+}
+
+/* ---- FOOTER SURFACE ---- */
+.site-footer {
+  background: var(--surface);
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+}
+
+   
+/* ===== Modal theming (works for both light & dark) ===== */
+.modal-content {
+  background: var(--card-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border) !important;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer,
+.modal-title {
+  color: var(--text) !important;
+}
+
+.modal-header {
+  border-bottom-color: var(--border) !important;
+}
+.modal-footer {
+  border-top-color: var(--border) !important;
+}
+
+/* make the backdrop a bit darker in dark mode */
+:root[data-theme="dark"] .modal-backdrop {
+  --bs-backdrop-bg: #000;
+  --bs-backdrop-opacity: .75;
+}
+
+/* close icon visible in dark mode */
+:root[data-theme="dark"] .btn-close {
+  filter: invert(1) grayscale(1);
+  opacity: .85;
+}
+
+/* optional: ensure inputs/buttons inside modals inherit theme */
+.modal-content .form-control,
+.modal-content .form-select {
+  background-color: var(--card-bg);
+  color: var(--text);
+  border-color: var(--border);
+}
+.modal-content .form-control::placeholder {
+  color: var(--muted);
+}
